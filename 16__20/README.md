@@ -206,5 +206,85 @@ console.log(circle.getDiameter()); // 10
 
 
 ## 일급 객체
+다음과 같은 조건을 만족하는 객체를 일급 객체라고 한다.  
+1. 무명의 리터럴로 생성할수 있다 => 런타임에 생성 가능
+2. 변수나 자료구조(객체, 배열 등)에 저장할 수 있다.
+3. 함수의 매개변수에 전달할 수 있다.
+4. 함수의 반환값으로 사용할 수 있다.
 
+~~~javascript
+// 1. 무명의 리터럴로 생성할 수 있다.
+// 2. 변수나 자료구조에 저장할 수 있다.
+const increase = function (num) {
+  return ++num;
+};
+
+const decrease = function (num) {
+  return --num;
+};
+
+// 2. 함수는 객체에 저장할수 있다.
+const auxs = {increase, decrease};
+
+// 3. 함수의 반환값으로 사용할 수 있다.
+// 4. 함수의 매개변수에 전달할 수 있다.
+function calc(func, num) {
+  return func(num);
+}
+
+~~~
+
+
+## 프로토타입
+
+### 객체 지향 vs 프로토타입
+객체 지향 프로그래밍은 클래스를 기반으로 하는 프로그래밍 패러다임이다.  
+실체는 특징을 가지고 있다.  
+사람이라면 이름, 주소, 성별등 다양한 속성을 갖는데 필요한 것만 가지고 있다.  
+이런 실체를 추상화 하면 클래스가 된다.  
+
+~~~javascript
+const circle = {
+  radius: 5,
+  getDiameter() {
+    return 2 * this.radius;
+  }
+};
+
+console.log(circle.getDiameter()); // 10
+~~~
+
+프로토타입 방법
+~~~javascript
+// 생성자 함수
+function Circle(radius) {
+   this.radius = radius;
+}
+
+// Circle 생성자 함수가 생성한 모든 인스턴스가 getArea 메서드를
+// 공유해서 사용할 수 있도록 프로토타입에 추가한다.
+// 프로토타입은 Circle 생성자 함수의 prototype 프로퍼티에 바인딩되어 있다.
+Circle.prototype.getArea = function () {
+  return Math.PI * this.radius ** 2;
+};
+
+// 인스턴스 생성
+const circle1 = new Circle(1);
+const circle2 = new Circle(2);
+
+// Circle 생성자 함수가 생성한 모든 인스턴스는 부모 객체의 역할을 하는
+// 프로토타입 Circle.prototype으로부터 getArea 메서드를 상속받는다.
+// 즉, Circle 생성자 함수가 생성하는 모든 인스턴스는 하나의 getArea 메서드를 공유한다.
+console.log(circle1.getArea === circle2.getArea); // true
+
+console.log(circle1.getArea()); // 3.141592653589793
+console.log(circle2.getArea()); // 12.566370614359172
+
+~~~
+
+프로토타입이란 객체 지향 프로그래밍의 근간을 이루는 객체 간 상속을 구현하기 위해 사용된다.  
+
+ES6의 축약 표현은 constructor도 갖지 않고 prototype도 갖지 않는다.
+
+    
     
