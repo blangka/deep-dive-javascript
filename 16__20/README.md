@@ -286,5 +286,39 @@ console.log(circle2.getArea()); // 12.566370614359172
 
 ES6의 축약 표현은 constructor도 갖지 않고 prototype도 갖지 않는다.
 
+### 프로토타입 체인
+~~~javascript
+function Person(name) {
+  this.name = name;
+}
+
+const me = new Person('Lee');
+
+// hasOwnProperty 메서드는 Object.prototype의 메서드다.
+// me 객체는 hasOwnProperty 메서드를 소유하지 않지만
+// 아래의 코드는 가능하다. 이는 프로토타입 체인 덕분이다.
+console.log(me.hasOwnProperty('name')); // true
+~~~
     
-    
+## static mode
+
+~~~javascript
+function foo() {
+    x = 10;
+}
+foo();
+
+console.log(x); // 10 ?
+~~~
+10 이 나오는 현상은 암묵적 전역으로 x 프로퍼티는 마치 전역 변수 처럼 사용 될수 있다.  
+이를 방지하기 위해 ES5 부터는 static mode 가 추가 되었다. 최적화 작업에 문제를 일으킬수 있는 코드에 대해 명시적인 에러를 일으킨다.  
+
+static mode 가 발생 시키는 에러는 다음과 같다
+1. 암묵적 전역 : 선언하지 않은 변수를 참조
+2. delete 연산자로 변수, 함수, 매개변수를 삭제
+3. 함수 매개변수에 전달된 인수 중복 : function foo(x,x)
+4. with 문 사용
+
+static mode 가 발생 시키는 변화
+1. 일반 함수의 this는 undefined, 생성자 함수의 this는 인스턴스를 가리킨다.
+2. arguments 객체에 callee 프로퍼티가 없다.
