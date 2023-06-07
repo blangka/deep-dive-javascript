@@ -282,4 +282,35 @@ me.sayHi(); // Hi! My name is Lee
 Person.sayHello(); // Hello!
 ~~~
 
-클래스는 호이스팅 되지만 정의 이전에 호출 할수 없다 왜일까?  let const 키워드와 마찬가지로 선언문 이전에 일시적 사각지대에 빠지기 떄문에 호이스팅이 발생하지 않는것 처럼 동작한다.
+클래스는 호이스팅 되지만 정의 이전에 호출 할수 없다 왜일까?  let const 키워드와 마찬가지로 선언문 이전에 일시적 사각지대에 빠지기 떄문에 호이스팅이 발생하지 않는것 처럼 동작한다.  
+### 정적 매서드와 프로토타입 메서드의 차이
+~~~javascript
+class Square {
+  // 정적 메서드
+  static area(width, height) {
+    return width * height;
+  }
+}
+
+console.log(Square.area(10, 10)); // 100
+
+class Square {
+  // 생성자
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+
+  // 프로토타입 메서드
+  area() {
+    return this.width * this.height;
+  }
+}
+
+const square = new Square(10, 10);
+console.log(square.area()); // 100
+~~~
+1. 정적 메서드는 클래스의 인스턴스로 호출 할수 없다.
+2. 정적 메서드는 인스턴스 프로퍼티를 참조할수 없지만 프로토 타입 매서드는 인스턴스 프로퍼티를 참조할수 있다.
+
+  
