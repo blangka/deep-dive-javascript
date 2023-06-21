@@ -9,6 +9,7 @@ function makeNumberArray(defaultValue: number, size: number): number[] {
   }
   return arr;
 }
+makeNumberArray(1, 10); // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ~~~
 위 함수는 number 타입의 배열을 만드는 함수이다.
 ~~~javascript
