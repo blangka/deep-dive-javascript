@@ -104,4 +104,52 @@ const App = () => {
 };
 ~~~
 
-##
+## 이벤트
+브라우저는 특정 사건이 발생하면 이벤트를 발생 시킨다.
+
+### 이벤트 흐름
+이벤트 흐름은 이벤트가 전파되는 방식을 말한다.
+이벤트 흐름에는 캡처링 단계, 타깃 단계, 버블링 단계가 있다.
+~~~javascript
+<div>
+  <button>버튼</button>
+</div>
+~~~
+위와 같은 구조에서 버튼을 클릭하면 이벤트가 발생한다.
+이벤트 흐름은 버튼 -> div -> document -> window 순으로 발생한다.
+이벤트 흐름은 버블링 단계와 캡처링 단계로 구분된다.
+버블링 단계는 이벤트가 발생한 요소에서 document까지 이벤트가 전파되는 단계이다.
+캡처링 단계는 document에서 이벤트가 발생한 요소까지 이벤트가 전파되는 단계이다.
+
+3가지 순서로 보통 된다 캡쳐링 -> 타겟 단계 -> 버블링 단계
+
+~~~html
+<!DOCTYPE html>
+<html>
+<body>
+    <ul id="fruits">
+        <li id="apple">Apple</li>
+        <li id="banana">Banana</li>    
+    </ul>
+<script>
+    const fruits = document.querySelector('#fruits');
+    const apple = document.querySelector('#apple');
+    const banana = document.querySelector('#banana');
+
+    fruits.addEventListener('click', e => {
+        console.log('이벤트 단계: ', e.eventPhase); // 1: 캡쳐링 단계
+    }, true);
+
+    apple.addEventListener('click', e => {
+        console.log('이벤트 단계: ', e.eventPhase); // 2: 타겟 단계
+    }, true);
+
+    fruits.addEventListener('click', e => {
+        console.log('이벤트 단계: ', e.eventPhase); // 3: 버블링 단계
+    }, false);
+</script>
+</body>
+</html>
+~~~
+
+
